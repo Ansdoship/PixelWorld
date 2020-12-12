@@ -1,17 +1,17 @@
 package com.ansdoship.pixelworld;
 
+import com.ansdoship.pixelworld.screen.GameScreen;
+import com.ansdoship.pixelworld.screen.SplashScreen;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
-import com.ansdoship.pixelworld.screen.SplashScreen;
-import com.ansdoship.pixelworld.screen.GameScreen;
-import com.badlogic.gdx.assets.AssetManager;
 
 public class Launcher extends Game {
     AssetManager aman;
-    
+
     @Override
-    public void create () {
+    public void create() {
         aman = new AssetManager();
         SplashScreen splashScreen = new SplashScreen();
         setScreen(splashScreen);
@@ -25,13 +25,13 @@ public class Launcher extends Game {
         timer.scheduleTask(task, 3);
     }
 
-    public void changeScreen(){
+    public void changeScreen() {
         GameScreen gameScreen = new GameScreen();
         setScreen(gameScreen);
     }
 
     @Override
-    public void dispose () {
+    public void dispose() {
         aman.dispose();
     }
 }
