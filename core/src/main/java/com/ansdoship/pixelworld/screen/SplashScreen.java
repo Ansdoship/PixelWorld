@@ -26,7 +26,7 @@ public class SplashScreen extends ScreenAdapter {
     public void render(float delta) {
         logo.setProjectionMatrix(camera.combined);
         logo.begin();
-        logo.draw(texture, 0, 0, screenWidth, screenHeight);
+        logo.draw(texture, 320/2, screenHeight/4, screenWidth-320, screenHeight/2);
         logo.end();
     }
     

@@ -9,7 +9,7 @@ public class Chunk {
 
     TileMap tilemap;
     public static int ChunkSize = 16;
-    public static int tilesize = 8;
+    public static int tilesize = 16;
     public static int TileWidth = tilesize, TileHeight = tilesize;
 
     public Chunk() {
@@ -43,16 +43,16 @@ public class Chunk {
         draw(world, 0, 0);
     }
 
-    public void draw(World world, int ox, int oy) {
+    public void draw(World world, int x, int y) {
         for (int i = 0; i < tilemap.width; i++) {
             for (int j = 0; j < tilemap.height; j++) {
-                int sx = ox + i * TileWidth;
-                int sy = ox + j * TileHeight;
+                int sx = i * TileWidth;
+                int sy = j * TileHeight;
                 if (tilemap.get(i, j) != null) {
-                    world.draw(tilemap.get(i, j), sx, sy, TileWidth, TileHeight);
+                    world.draw(tilemap.get(i, j), sx + x, sy + y, TileWidth, TileHeight);
                     //Gdx.app.log("drawTile", String.format("x:%d y:%d", sx, sy));
                 } else {
-                    world.draw(new Texture("ic_launcher_128.png"), sx, sy, TileWidth, TileHeight);
+                    world.draw(new Texture("ic_launcher_128.png"), x, y, TileWidth, TileHeight);
                 }
             }
         }
