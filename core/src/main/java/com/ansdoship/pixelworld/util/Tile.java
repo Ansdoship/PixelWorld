@@ -1,9 +1,11 @@
 package com.ansdoship.pixelworld.util;
 
-import com.badlogic.gdx.utils.Pool.Poolable;
 import com.ansdoship.pixelworld.world.Chunk;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class Tile implements Poolable{
+    TextureRegion sprite;
     public float light = 10f;
     public int top = 0;
     public Material[] layers;

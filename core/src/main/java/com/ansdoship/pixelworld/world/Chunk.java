@@ -11,11 +11,13 @@ public class Chunk {
     public static int ChunkSize = 16;
     public static int tilesize = 16;
     public static int TileWidth = tilesize, TileHeight = tilesize;
+    public int x, y;
 
-    public Chunk() {
+    public Chunk(int x, int y) {
 
         tilemap = new TileMap(ChunkSize, ChunkSize);
-//        fill(new Texture("images/tiles/ground.png"));
+        this.x = x;
+        this.y = y;
 
     }
 
@@ -37,6 +39,10 @@ public class Chunk {
 
     public boolean fill(Texture texture) {
         return fill(0, 0, ChunkSize, ChunkSize, texture);
+    }
+    
+    public void copy(Chunk c){
+        tilemap = c.tilemap;
     }
 
     public void draw(World world) {

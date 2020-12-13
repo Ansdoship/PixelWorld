@@ -13,13 +13,14 @@ public class Launcher extends Game {
     @Override
     public void create() {
         aman = new AssetManager();
-        SplashScreen splashScreen = new SplashScreen();
-        setScreen(splashScreen);
+//        SplashScreen splashScreen = new SplashScreen();
+//        setScreen(splashScreen);
+        changeScreen();
         Timer timer = new Timer();
         Task task = new Task() {
             @Override
             public void run() {
-                changeScreen();
+                //changeScreen();
             }
         };
         timer.scheduleTask(task, 3);

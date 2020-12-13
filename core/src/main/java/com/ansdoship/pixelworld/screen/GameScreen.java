@@ -17,26 +17,33 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisCHLoader;
 import com.kotcrab.vis.ui.VisUI;
+import com.ansdoship.pixelworld.world.Generator;
 
 public class GameScreen extends ScreenAdapter {
     public World world;
     public TileMap tilemap;
     public Chunk chunk;
+    
     OrthographicCamera camera;
 	OrthoCamController cameraController;
-    Stage uiStage;
     public InputMultiplexer inputMultiplexer;
     float zoom = 1;
+    
+    Stage uiStage;
+    
+    Generator g;
+//    int a = 0;
+//    int b = 0;
 
     protected static Vector3 tmp_vector3 = new Vector3(0, 0, 0);
 
     public GameScreen() {
         VisCHLoader.load();
-        
+
         camera = new OrthographicCamera(Constant.screenWidth, Constant.screenHeight);
 		camera.update();
         cameraController = new OrthoCamController(camera);
-        
+
         world = new World(2);
         world.createDefaultShader();        
 
@@ -44,17 +51,22 @@ public class GameScreen extends ScreenAdapter {
         uiStage.addActor(new ZoomRegulator(camera));
 
         Texture t = new Texture("images/tiles/ground.png");
+        g = new Generator(20201213);
         for (int i = 0; i < world.width; i++) {
             for (int j = 0; j < world.height; j++) {
-                world.getChunk(i, j).fill(t);
+                world.getChunk(i, j).copy(g.generate(world.getChunk(i, j)));
             }
         }
-        
+        world.getChunk(1, 2).fill(t);
+        world.getChunk(0, 3).fill(t);
+        world.getChunk(4, 2).fill(t);
+        world.getChunk(1, 4).fill(t);world.getChunk(1, 3).fill(t);
+
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(uiStage);
         inputMultiplexer.addProcessor(cameraController);
 		Gdx.input.setInputProcessor(inputMultiplexer);        
-        
+
     }
 
     @Override
@@ -62,6 +74,9 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		Gdx.app.log("Fps", "" + Gdx.graphics.getFramesPerSecond());
+//        a++;
+//        b++;
+//        Gdx.app.log("g", ""+g.n(a, b));
 
         camera.update();
         world.setProjectionMatrix(camera.combined);
@@ -69,7 +84,7 @@ public class GameScreen extends ScreenAdapter {
         world.begin();
         world.draw();
         world.end();
-        
+
         uiStage.draw();
         uiStage.act();
 
