@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.ansdoship.pixelworld.world.World;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TileMap implements Poolable{
-    public Texture[][] tiles;
+    public TextureRegion[][] tiles;
 	public int width, height;
     
     public TileMap(){}
@@ -15,7 +16,7 @@ public class TileMap implements Poolable{
         CreateTileMap(w, h);
     }
 
-    public TileMap(int w, int h, Texture texture) {
+    public TileMap(int w, int h, TextureRegion texture) {
         this(w, h);
         fill(0, 0, w, h, texture);
     }
@@ -23,14 +24,14 @@ public class TileMap implements Poolable{
     public void CreateTileMap(int w, int h){
         width = w;
         height = h;
-		tiles = new Texture[w][h];
+		tiles = new TextureRegion[w][h];
     }
 
-    public Texture get(int x, int y) {
+    public TextureRegion get(int x, int y) {
         return tiles[x][y];
     }
 
-    public boolean set(int x, int y, Texture texture) {
+    public boolean set(int x, int y, TextureRegion texture) {
         if (texture != null) {
             tiles[x][y] = texture;
             return true;
@@ -38,11 +39,11 @@ public class TileMap implements Poolable{
         return false;
     }
 
-    public boolean set(Position pos, Texture texture) {
+    public boolean set(Position pos, TextureRegion texture) {
         return set(pos.x, pos.y, texture);
     }
 
-    public boolean fill(int x, int y, int w, int h, Texture texture) {
+    public boolean fill(int x, int y, int w, int h, TextureRegion texture) {
         if (texture != null) {
             for (int i = x; i < w; i++) {
                 for (int j = y; j < h; j++) {

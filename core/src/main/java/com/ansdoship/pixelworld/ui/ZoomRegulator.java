@@ -8,14 +8,15 @@ import com.kotcrab.vis.ui.widget.VisProgressBar;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisWindow;
+import com.ansdoship.pixelworld.util.input.OrthoCamController;
 
 public class ZoomRegulator extends VisWindow {
     
-    OrthographicCamera camera;
+    OrthoCamController cameraController;
     
-    public ZoomRegulator(OrthographicCamera camera){
+    public ZoomRegulator(OrthoCamController cameraController){
         super("相机缩放调节");
-        this.camera = camera;
+        this.cameraController = cameraController;
         TableUtils.setSpacingDefaults(this);
         columnDefaults(0).left();
 
@@ -32,14 +33,14 @@ public class ZoomRegulator extends VisWindow {
         final VisSlider slider = new VisSlider(1, 500, 1, true);
         slider.addListener(new DragListener() {
                 public void drag(InputEvent event, float x, float y, int pointer) {
-                    camera.zoom = slider.getValue()/100;
-                    camera.update();
+                    cameraController.zoomTo(slider.getValue()/100);
+                    cameraController.animationUpdate();
                 }
             });
         slider.addListener(new InputListener() {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    camera.zoom = slider.getValue()/100;
-                    camera.update();
+                    cameraController.zoomTo(slider.getValue()/100);
+                    cameraController.animationUpdate();
                     return false;
                 }
             });

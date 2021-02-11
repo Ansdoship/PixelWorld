@@ -1,9 +1,9 @@
 package com.ansdoship.pixelworld.world;
 
-import com.ansdoship.pixelworld.util.TileMap;
-import com.badlogic.gdx.graphics.Texture;
 import com.ansdoship.pixelworld.util.Position;
-import com.badlogic.gdx.Gdx;
+import com.ansdoship.pixelworld.util.TileMap;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Chunk {
 
@@ -12,6 +12,8 @@ public class Chunk {
     public static int tilesize = 16;
     public static int TileWidth = tilesize, TileHeight = tilesize;
     public int x, y;
+    TextureRegion nullt = 
+    new TextureRegion(new Texture("null.png"));
 
     public Chunk(int x, int y) {
 
@@ -21,24 +23,24 @@ public class Chunk {
 
     }
 
-    public Texture get(int x, int y) {
+    public TextureRegion get(int x, int y) {
         return tilemap.get(x, y);
     }
 
-    public boolean set(int x, int y, Texture texture) {
-        return tilemap.set(x, y, texture);
+    public boolean set(int x, int y, TextureRegion TextureRegion) {
+        return tilemap.set(x, y, TextureRegion);
     }
 
-    public boolean set(Position pos, Texture texture) {
-        return tilemap.set(pos, texture);
+    public boolean set(Position pos, TextureRegion TextureRegion) {
+        return tilemap.set(pos, TextureRegion);
     }
 
-    public boolean fill(int x, int y, int w, int h, Texture texture) {
-        return tilemap.fill(x, y, w, h, texture);
+    public boolean fill(int x, int y, int w, int h, TextureRegion TextureRegion) {
+        return tilemap.fill(x, y, w, h, TextureRegion);
     }
 
-    public boolean fill(Texture texture) {
-        return fill(0, 0, ChunkSize, ChunkSize, texture);
+    public boolean fill(TextureRegion TextureRegion) {
+        return fill(0, 0, ChunkSize, ChunkSize, TextureRegion);
     }
     
     public void copy(Chunk c){
@@ -58,7 +60,7 @@ public class Chunk {
                     world.draw(tilemap.get(i, j), sx + x, sy + y, TileWidth, TileHeight);
                     //Gdx.app.log("drawTile", String.format("x:%d y:%d", sx, sy));
                 } else {
-                    world.draw(new Texture("ic_launcher_128.png"), x, y, TileWidth, TileHeight);
+                    world.draw(nullt, x, y, TileWidth, TileHeight);
                 }
             }
         }

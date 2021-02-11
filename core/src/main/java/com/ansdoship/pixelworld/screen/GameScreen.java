@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisCHLoader;
 import com.kotcrab.vis.ui.VisUI;
 import com.ansdoship.pixelworld.world.Generator;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends ScreenAdapter {
     public World world;
@@ -48,19 +49,20 @@ public class GameScreen extends ScreenAdapter {
         world.createDefaultShader();        
 
         uiStage = new Stage(new ScreenViewport());
-        uiStage.addActor(new ZoomRegulator(camera));
+        uiStage.addActor(new ZoomRegulator(cameraController));
 
-        Texture t = new Texture("images/tiles/ground.png");
-        g = new Generator(20201213);
+        TextureRegion t = new TextureRegion(new Texture("images/tiles/wall.png"));
+        g = new Generator(20201216);
         for (int i = 0; i < world.width; i++) {
             for (int j = 0; j < world.height; j++) {
-                world.getChunk(i, j).copy(g.generate(world.getChunk(i, j)));
+                world.getChunk(i, j).fill(t);
+               // g.generate(world.getChunk(i, j));
             }
         }
-        world.getChunk(1, 2).fill(t);
-        world.getChunk(0, 3).fill(t);
-        world.getChunk(4, 2).fill(t);
-        world.getChunk(1, 4).fill(t);world.getChunk(1, 3).fill(t);
+        //world.getChunk(1, 2).copy(g.generate(world.getChunk(1, 2)));
+//        world.getChunk(0, 3).fill(t);
+//        world.getChunk(4, 2).fill(t);
+//        world.getChunk(1, 4).fill(t);world.getChunk(1, 3).fill(t);
 
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(uiStage);
@@ -79,6 +81,7 @@ public class GameScreen extends ScreenAdapter {
 //        Gdx.app.log("g", ""+g.n(a, b));
 
         camera.update();
+        cameraController.animationUpdate();
         world.setProjectionMatrix(camera.combined);
 
         world.begin();
